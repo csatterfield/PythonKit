@@ -646,7 +646,7 @@ public class PythonInterface {
     
     public func initialize(pathToPythonLib: String, pathToPythonHome: String){
         setenv("PYTHON_LIBRARY", pathToPythonLib, 1)
-        setenv("PYTHON_LIBRARY", pathToPythonHome, 1)
+        setenv("PYTHONHOME", pathToPythonHome, 1)
         Py_Initialize()   // Initialize Python
         builtins = PythonObject(PyEval_GetBuiltins())
         
