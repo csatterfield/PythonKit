@@ -19,6 +19,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+import Foundation
+
 //===----------------------------------------------------------------------===//
 // `PyReference` definition
 //===----------------------------------------------------------------------===//
@@ -626,6 +628,7 @@ public extension PythonObject {
 ///     let list: PythonObject = [1, 2, 3]
 ///     print(Python.len(list)) // Prints 3.
 ///     print(Python.type(list) == Python.list) // Prints true.
+
 @_fixed_layout
 public let Python = PythonInterface()
 
@@ -639,9 +642,11 @@ public let Python = PythonInterface()
 @dynamicMemberLookup
 public struct PythonInterface {
     /// A dictionary of the Python builtins.
-    public let builtins: PythonObject
+    public var builtins: PythonObject?
     
-    init() {
+    public mutating func initialize(pathToPythonLib: String, pathToPythonHome: String){
+        setenv("PYTHON_LIBRARY", pathToPythonLib, 1)
+        setenv("PYTHON_LIBRARY", pathToPythonHome, 1)
         Py_Initialize()   // Initialize Python
         builtins = PythonObject(PyEval_GetBuiltins())
         
@@ -674,7 +679,7 @@ public struct PythonInterface {
     }
     
     public subscript(dynamicMember name: String) -> PythonObject {
-        return builtins[name]
+        return builtins![name]
     }
     
     // The Python runtime version.
