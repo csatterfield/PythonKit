@@ -186,6 +186,7 @@ private extension PythonLibrary {
     
     static func loadPythonLibrary() -> UnsafeMutableRawPointer? {
         if let pythonLibraryPath = Environment.library.value {
+            print("PYTHON_LIBRARY = ", pythonLibraryPath)
             return loadPythonLibrary(at: pythonLibraryPath)
         }
         
