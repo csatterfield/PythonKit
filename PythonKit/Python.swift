@@ -640,11 +640,11 @@ public let Python = PythonInterface()
 ///   directly. Instead, please use the global instance of `PythonInterface`
 ///   called `Python`.
 @dynamicMemberLookup
-public struct PythonInterface {
+public class PythonInterface {
     /// A dictionary of the Python builtins.
     public var builtins: PythonObject?
     
-    public mutating func initialize(pathToPythonLib: String, pathToPythonHome: String){
+    public func initialize(pathToPythonLib: String, pathToPythonHome: String){
         setenv("PYTHON_LIBRARY", pathToPythonLib, 1)
         setenv("PYTHON_LIBRARY", pathToPythonHome, 1)
         Py_Initialize()   // Initialize Python
